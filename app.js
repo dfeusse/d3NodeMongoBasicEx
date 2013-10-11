@@ -20,6 +20,7 @@ var app = express();
 app.set('port', process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
+app.engine('html', ejs.renderFile);
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
@@ -39,7 +40,8 @@ app.get('/users', user.list);
 app.get('/helloworld', routes.helloworld);
 app.get('/userlist', routes.userlist(db));
 app.get('/d3json', routes.d3json(db));
-app.get('/d3visual', routes.d3visual(db));
+app.get('/d3jsonclientside', routes.d3jsonclientside(db));
+app.get('/d3visual', routes.d3visual);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
